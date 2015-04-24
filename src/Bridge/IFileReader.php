@@ -9,12 +9,12 @@ namespace Balloon\Bridge;
 interface IFileReader
 {
     /**
-     * @return string
+     * @return mixed
      */
     public function read();
 
     /**
-     * @param string $data
+     * @param mixed $data
      * @param int $mode
      * @return int
      */
