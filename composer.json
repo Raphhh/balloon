@@ -1,0 +1,38 @@
+{
+    "name": "raphhh/balloon",
+    "description": "Tiny file data access layer",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raphaël Lefebvre",
+            "email": "raphael@raphaellefebvre.be"
+        }
+    ],
+    "keywords": [
+        "filemanager",
+        "data access layer",
+        "json",
+        "xml",
+        "yaml",
+        "csv"
+    ],
+    "autoload": {
+        "psr-4": {
+            "": [
+                "src/",
+                "tests/"
+            ],
+            "Balloon\\": [
+                "src/",
+                "tests/"
+            ]
+        }
+    },
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
+    }
+}
