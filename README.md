@@ -41,18 +41,21 @@ var_dump($dataList); // contain an array of the data of your file
 
 ```php
 $balloon->add(['key1' => 'value1, ... ]);
+$balloon->flush();
 ```
 
 ### Modify data
 
 ```php
 $balloon->modify($id, ['key1' => 'value1, ... ]);
+$balloon->flush();
 ```
 
 ### Remove data
 
 ```php
 $balloon->remove($id);
+$balloon->flush();
 ```
 
 ## Work with specific class
@@ -77,16 +80,19 @@ var_dump($dataList); // contain an array of the data of your file
 
 ```php
 $balloon->add($myObject);
+$balloon->flush();
 ```
 
 ### Modify object
 
 ```php
 $balloon->modify($id, $myObject);
+$balloon->flush();
 ```
 
 ### Remove object
 
 ```php
 $balloon->remove($id);
+$balloon->flush();
 ```
