@@ -9,10 +9,10 @@
 [![License](https://poser.pugx.org/raphhh/balloon/license.svg)](https://packagist.org/packages/raphhh/balloon)
 
 
-Balloon is a file manager with different kinds of data formats. 
+Balloon is a file manager which supports different kinds of data formats. 
 It help you to get, add, modify or remove data from files like csv, json, xml or yaml.
 
-You can use it as a Data Access Layer (DAL) and work with array, or use it as an Object Relational Mapping (ORM) and work with objects.
+You can use it as a Data Access Layer (DAL) and work with arrays, or use it as an Object Relational Mapping (ORM) and work with objects.
 
 
 ## Installation
@@ -36,20 +36,20 @@ $balloon = $balloonFactory->create('path/to/my/file.json');
 
 ```php
 $dataList = $balloon->getAll();
-var_dump($dataList); // contain an array of the data of your file
+var_dump($dataList); // contains an array of the data of your file
 ```
 
 ### Add data
 
 ```php
-$balloon->add(['key1' => 'value1, ... ]);
+$balloon->add(['key1' => 'value1', ... ]);
 $balloon->flush();
 ```
 
 ### Modify data
 
 ```php
-$balloon->modify($id, ['key1' => 'value1, ... ]);
+$balloon->modify($id, ['key1' => 'value1', ... ]);
 $balloon->flush();
 ```
 
@@ -75,7 +75,7 @@ $balloon = $balloonFactory->create('path/to/my/file.json', 'My\Class', 'pkProper
 
 ```php
 $objects = $balloon->getAll();
-var_dump($objects); // contain an array of the objects of your file
+var_dump($objects); // contains an array of the objects of your file
 ```
 
 ### Add object
@@ -123,7 +123,7 @@ So, that means you have to flush Balloon if you want to write into the file.
 
 ```php
 $balloon->add($data); //nothing added into the file
-$balloon->flush(); //now, we put $data into the file
+$balloon->flush(); //now only, we put $data into the file
 ```
 
 ## Object Mapping
@@ -133,3 +133,22 @@ Balloon uses two strategies to map the data to an object:
  1. Your object implements IArrayCastable, and returns directly the data.
  2. Your object use public properties and can be cast to an array.
  
+
+An example with IArrayCastable:
+```php
+class Foo implements IArrayCastable
+{
+
+    private $key1 = 'value1';
+    private $key2 = 'value2';
+    
+    
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+}
+```
