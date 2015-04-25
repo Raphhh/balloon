@@ -12,7 +12,7 @@
 Balloon is a file manager with different kinds of data formats. 
 It help you to get, add, modify or remove data from files like csv, json, xml or yaml.
 
-You can use it as a Data Access Layer (DAL) and work with array, or use it as an Object Relational Mapping and work with objects.
+You can use it as a Data Access Layer (DAL) and work with array, or use it as an Object Relational Mapping (ORM) and work with objects.
 
 
 ## Installation
