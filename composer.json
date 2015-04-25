@@ -1,6 +1,6 @@
 {
     "name": "raphhh/balloon",
-    "description": "Tiny file data access layer",
+    "description": "Tiny file ORM",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -12,6 +12,7 @@
     "keywords": [
         "filemanager",
         "data access layer",
+        "object relational mapping",
         "json",
         "xml",
         "yaml",
