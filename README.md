@@ -68,14 +68,14 @@ If you want to map the data to a specific class:
 
 ```php
 $balloonFactory = new BalloonFactory();
-$balloon = $balloonFactory->create('path/to/my/file.json', 'My\Class\Name', 'pkPropertyName');
+$balloon = $balloonFactory->create('path/to/my/file.json', 'My\Class', 'pkPropertyName');
 ```
 
 ### Get objects
 
 ```php
-$dataList = $balloon->getAll();
-var_dump($dataList); // contain an array of the data of your file
+$objects = $balloon->getAll();
+var_dump($objects); // contain an array of the objects of your file
 ```
 
 ### Add object
