@@ -20,7 +20,7 @@ class DataMapperDecoratorTest extends \PHPUnit_Framework_TestCase
         $fileReader = new Json(new DummyFileReader());
         $fileReader->write($data);
 
-        $dataMapper = $this->getMock('Balloon\Mapper\DataMapper');
+        $dataMapper = $this->getMockBuilder('Balloon\Mapper\DataMapper')->disableOriginalConstructor()->getMock();
         $dataMapper->expects($this->once())
             ->method('tie')
             ->with($data)
@@ -37,7 +37,7 @@ class DataMapperDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $fileReader = new Json(new DummyFileReader());
 
-        $dataMapper = $this->getMock('Balloon\Mapper\DataMapper');
+        $dataMapper = $this->getMockBuilder('Balloon\Mapper\DataMapper')->disableOriginalConstructor()->getMock();
         $dataMapper->expects($this->once())
             ->method('untie')
             ->with($data)

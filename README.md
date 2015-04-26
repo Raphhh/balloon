@@ -152,3 +152,9 @@ class Foo implements IArrayCastable
     }
 }
 ```
+
+
+//todo
+tester les primary key
+rajouter addLIst, removeList,...
+rajouter xml, yaml, csv

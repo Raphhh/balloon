@@ -10,6 +10,7 @@ use Balloon\Mapper\DataMapper;
 use Balloon\Mapper\DataMapperDecorator;
 use Balloon\Proxy\FileReaderCache;
 use Balloon\Proxy\FileReaderProxy;
+use ICanBoogie\Inflector;
 
 /**
  * Class BalloonFactory
@@ -75,7 +76,10 @@ class BalloonFactory
             new FileReaderProxy(
                 new DataMapperDecorator(
                     $formatDecorator,
-                    new DataMapper($className)
+                    new DataMapper(
+                        Inflector::get(),
+                        $className
+                    )
                 ),
                 new FileReaderCache()
             ),

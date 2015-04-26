@@ -1,19 +1,17 @@
 <?php
 namespace Balloon\Mapper\resources;
 
-use Balloon\Mapper\IArrayCastable;
-
 /**
  * Class Class1
  * @package Balloon\Mapper\resources
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class Class1 implements IArrayCastable
+class Bar
 {
     /**
      * @var string
      */
-    private $key1;
+    public $key1;
 
     /**
      * @param string $key1
@@ -41,13 +39,5 @@ class Class1 implements IArrayCastable
     public function setKey1($key1)
     {
         $this->key1 = (string)$key1;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return get_object_vars($this);
     }
 }

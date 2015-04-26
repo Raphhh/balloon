@@ -1,6 +1,8 @@
 <?php
 namespace Balloon\Mapper;
 
+use ICanBoogie\Inflector;
+
 /**
  * Class DataMapper
  * @package Balloon\Mapper
@@ -14,10 +16,17 @@ class DataMapper
     private $className;
 
     /**
+     * @var Inflector
+     */
+    private $inflector;
+
+    /**
+     * @param Inflector $inflector
      * @param string $className
      */
-    public function __construct($className = '')
+    public function __construct(Inflector $inflector, $className = '')
     {
+        $this->inflector = $inflector;
         $this->setClassName($className);
     }
 
@@ -28,15 +37,15 @@ class DataMapper
     public function tie(array $dataList)
     {
         if(!$this->getClassName()){
-            return new \ArrayObject($dataList);
+            return $this->instantiateCollection($dataList);
         }
 
-        $result = new \ArrayObject();
+        $result = [];
         foreach($dataList as $key => $data){
             $object = $this->mapData($data);
             $result[$key] = $object;
         }
-        return $result;
+        return $this->instantiateCollection($result);
     }
 
     /**
@@ -87,5 +96,18 @@ class DataMapper
             $object->{'set'.$property}($value);
         }
         return $object;
+    }
+
+    /**
+     * @param array $data
+     * @return \ArrayObject
+     */
+    private function instantiateCollection(array $data)
+    {
+        $collectionClassName = $this->inflector->pluralize($this->className);
+        if(class_exists($collectionClassName)){
+            return new $collectionClassName($data);
+        }
+        return new \ArrayObject($data);
     }
 }

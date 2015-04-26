@@ -8,12 +8,12 @@ use Balloon\Mapper\IArrayCastable;
  * @package Balloon\Mapper\resources
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class Class2
+class Foo implements IArrayCastable
 {
     /**
      * @var string
      */
-    public $key1;
+    private $key1;
 
     /**
      * @param string $key1
@@ -41,5 +41,13 @@ class Class2
     public function setKey1($key1)
     {
         $this->key1 = (string)$key1;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return get_object_vars($this);
     }
 }
