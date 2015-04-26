@@ -57,6 +57,56 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([], $result->getArrayCopy());
     }
 
+    public function testFind()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->find(function($data){
+            return isset($data['key1']) && $data['key1'] === 'value1';
+        });
+        $this->assertSame([$data[0]], $result);
+    }
+
+    public function testFindEmpty()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->find(function($data){
+            return isset($data['key1']) && $data['key1'] === 'value1';
+        });
+        $this->assertSame([], $result);
+    }
+
+    public function testFindWithMapper()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator);
+        $result = $fileManager->find(function($data){
+            return isset($data['key1']) && $data['key1'] === 'value1';
+        });
+        $this->assertSame([$data[0]], $result->getArrayCopy());
+    }
+
+    public function testFindEmptyWithMapper()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator);
+        $result = $fileManager->find(function($data){
+            return isset($data['key1']) && $data['key1'] === 'value1';
+        });
+        $this->assertSame([], $result->getArrayCopy());
+    }
+
     public function testGet()
     {
         $data = [['key1' => 'value1'], ['key2' => 'value2']];

@@ -52,6 +52,20 @@ class FileManager implements IFileManager
     }
 
     /**
+     * @param callable $filter
+     * @return mixed
+     */
+    public function find(callable $filter = null)
+    {
+        $all = $this->getAll();
+        $result = array_filter((array)$all, $filter);
+        if(is_object($all)){
+            return new $all($result);
+        }
+        return $result;
+    }
+
+    /**
      * @return mixed
      */
     public function getAll()
