@@ -120,7 +120,7 @@ class FileManager implements IFileManager
      *
      * @return IFileReader
      */
-    public function getFileReader()
+    protected function getFileReader()
     {
         return $this->fileReader;
     }
@@ -130,7 +130,7 @@ class FileManager implements IFileManager
      *
      * @return string
      */
-    public function getPrimaryKey()
+    protected function getPrimaryKey()
     {
         return $this->primaryKey;
     }
