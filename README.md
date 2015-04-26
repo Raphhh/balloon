@@ -32,9 +32,9 @@ $ composer require raphhh/balloon
 
 ## ORM: Work with objects
 
-### Init
+With the ORM usage, Balloon will map data of your file into objects of a specific class.
 
-If you want to map the data to a specific class:
+### Init
 
 ```php
 $balloonFactory = new BalloonFactory();
@@ -71,6 +71,8 @@ $balloon->flush();
 
 ## DAL: Work with arrays
 
+With the Dal usage, Balloon will map data of your file into arrays.
+
 ### Init
 
 ```php
@@ -88,14 +90,14 @@ var_dump($dataList); // contains an array of the data of your file
 ### Add data
 
 ```php
-$balloon->add(['key1' => 'value1', ... ]);
+$balloon->add(['key1' => 'value1']);
 $balloon->flush();
 ```
 
 ### Modify data
 
 ```php
-$balloon->modify($id, ['key1' => 'value1', ... ]);
+$balloon->modify($id, ['key1' => 'value1']);
 $balloon->flush();
 ```
 
@@ -165,7 +167,7 @@ class Foo implements IArrayCastable
 
 ### Data to object
 
-Balloon use a setter according to the name of the mapped key.
+Balloon uses a setter of the object according to the name of the mapped key.
 
 Fo example, if the key is 'foo', the setter in the object must be 'setFoo($value)'.
 
@@ -183,6 +185,7 @@ class Bar
         $this->foo = $foo;
     }
 }
+```
 
 ## Collection
 
