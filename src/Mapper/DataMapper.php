@@ -93,7 +93,12 @@ class DataMapper
     {
         $object = new $this->className;
         foreach($data as $property => $value){
-            $object->{'set'.$property}($value);
+            $method = 'set'.$property;
+            if(method_exists($object, $method)){
+                $object->$method($value);
+            }else{
+                $object->$property = $value;
+            }
         }
         return $object;
     }

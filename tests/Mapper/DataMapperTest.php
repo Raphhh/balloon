@@ -30,9 +30,9 @@ class DataMapperTest extends \PHPUnit_Framework_TestCase
         $result = $dataMapper->tie([['key1' => 'value1'], ['key1' => 'value2']]);
         $this->assertCount(2, $result);
         $this->assertInstanceOf('Balloon\Mapper\resources\Bar', $result[0]);
-        $this->assertSame('value1', $result[0]->getKey1());
+        $this->assertSame('value1', $result[0]->key1);
         $this->assertInstanceOf('Balloon\Mapper\resources\Bar', $result[1]);
-        $this->assertSame('value2', $result[1]->getKey1());
+        $this->assertSame('value2', $result[1]->key1);
     }
 
     public function testTieWithoutClass()
