@@ -41,7 +41,7 @@ class FileManager implements IFileManager
 
     /**
      * @param mixed $id
-     * @return array|null
+     * @return mixed|null
      */
     public function get($id)
     {
@@ -60,7 +60,7 @@ class FileManager implements IFileManager
     }
 
     /**
-     * @param array $data
+     * @param mixed $data
      * @return int
      */
     public function add($data)
@@ -76,7 +76,7 @@ class FileManager implements IFileManager
 
     /**
      * @param mixed $id
-     * @param array $data
+     * @param mixed $data
      * @return int
      */
     public function modify($id, $data)
