@@ -115,7 +115,7 @@ class FileReader implements IFileReader
     /**
      * Getter of $context
      *
-     * @return null
+     * @return resource
      */
     public function getContext()
     {
