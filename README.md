@@ -41,6 +41,9 @@ $balloonFactory = new BalloonFactory();
 $balloon = $balloonFactory->create('path/to/my/file.json', 'My\Class', 'pkPropertyName');
 ```
 
+(Note that the pk is not mandatory. Id of object will be simple index.)
+
+
 ### Get objects
 
 ```php
@@ -137,9 +140,34 @@ $balloon->flush(); //now only, we put $data into the file
 
 ## Object Mapping
 
+### Data to object
+
+When you read a file, Balloon uses two strategies to map the data to an object:
+
+ 1. Balloon uses a setter of the object according to the name of the mapped key.
+ 2. If not setter is found, Balloon set the value directly to the property of the the mapped key.
+ 
+Fo example, if the key is 'foo', the setter in the object must be 'setFoo($value)'.
+
+```php
+class Bar 
+{
+
+    private $foo;
+    
+    /**
+     * @$param $foo
+     */
+    public function setFoo($foo)
+    {
+        $this->foo = $foo;
+    }
+}
+```
+
 ### Object to data
 
-Balloon uses two strategies to map the data to an object:
+When you write into a file, Balloon uses two strategies to map an object to the data:
 
  1. Your object implements IArrayCastable, and returns directly the data.
  2. Your object use public properties and can be cast to an array.
@@ -160,29 +188,6 @@ class Foo implements IArrayCastable
     public function toArray()
     {
         return get_object_vars($this);
-    }
-}
-```
-
-
-### Data to object
-
-Balloon uses a setter of the object according to the name of the mapped key.
-
-Fo example, if the key is 'foo', the setter in the object must be 'setFoo($value)'.
-
-```php
-class Bar 
-{
-
-    private $foo;
-    
-    /**
-     * @$param $foo
-     */
-    public function setFoo($foo)
-    {
-        $this->foo = $foo;
     }
 }
 ```
