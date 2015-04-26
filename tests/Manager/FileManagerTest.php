@@ -389,6 +389,39 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testRemoveList()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->removeList([0]);
+        $this->assertSame(45, $result);
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+                1 => ['key2' => 'value2'],
+            ],
+            $result
+        );
+    }
+
+    public function testRemoveListEmpty()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->removeList([0]);
+        //$this->assertSame(4, $result); can be 2. https://travis-ci.org/Raphhh/balloon/jobs/60049978
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+            ],
+            $result
+        );
+    }
+
     public function testRemoveAll()
     {
         $data = [['key1' => 'value1'], ['key2' => 'value2']];

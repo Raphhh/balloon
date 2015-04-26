@@ -162,6 +162,19 @@ class FileManager implements IFileManager
     }
 
     /**
+     * @param array $ids
+     * @return int
+     */
+    public function removeList(array $ids)
+    {
+        $result = 0;
+        foreach($ids as $id){
+            $result = $this->remove($id);
+        }
+        return $result;
+    }
+
+    /**
      * @return int
      */
     public function removeAll()
