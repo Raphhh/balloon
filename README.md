@@ -23,42 +23,12 @@ Execute [Composer](https://getcomposer.org/):
 $ composer require raphhh/balloon
 ```
 
-## DAL: Work with arrays
+## Supported file formats
 
-### Init
-
-```php
-$balloonFactory = new BalloonFactory();
-$balloon = $balloonFactory->create('path/to/my/file.json');
-```
-
-### Get data
-
-```php
-$dataList = $balloon->getAll();
-var_dump($dataList); // contains an array of the data of your file
-```
-
-### Add data
-
-```php
-$balloon->add(['key1' => 'value1', ... ]);
-$balloon->flush();
-```
-
-### Modify data
-
-```php
-$balloon->modify($id, ['key1' => 'value1', ... ]);
-$balloon->flush();
-```
-
-### Remove data
-
-```php
-$balloon->remove($id);
-$balloon->flush();
-```
+ - json
+ - yaml (todo)
+ - xml (todo)
+ - csv (todo)
 
 ## ORM: Work with objects
 
@@ -99,6 +69,43 @@ $balloon->remove($id);
 $balloon->flush();
 ```
 
+## DAL: Work with arrays
+
+### Init
+
+```php
+$balloonFactory = new BalloonFactory();
+$balloon = $balloonFactory->create('path/to/my/file.json');
+```
+
+### Get data
+
+```php
+$dataList = $balloon->getAll();
+var_dump($dataList); // contains an array of the data of your file
+```
+
+### Add data
+
+```php
+$balloon->add(['key1' => 'value1', ... ]);
+$balloon->flush();
+```
+
+### Modify data
+
+```php
+$balloon->modify($id, ['key1' => 'value1', ... ]);
+$balloon->flush();
+```
+
+### Remove data
+
+```php
+$balloon->remove($id);
+$balloon->flush();
+```
+
 ## Cache
 
 The cache of Balloon prevents to access to the same file more than once when you try to read it.
@@ -128,6 +135,8 @@ $balloon->flush(); //now only, we put $data into the file
 
 ## Object Mapping
 
+### Object to data
+
 Balloon uses two strategies to map the data to an object:
 
  1. Your object implements IArrayCastable, and returns directly the data.
@@ -154,7 +163,76 @@ class Foo implements IArrayCastable
 ```
 
 
-//todo
-tester les primary key
-rajouter addLIst, removeList,...
-rajouter xml, yaml, csv
+### Data to object
+
+Balloon use a setter according to the name of the mapped key.
+
+Fo example, if the key is 'foo', the setter in the object must be 'setFoo($value)'.
+
+```php
+class Bar 
+{
+
+    private $foo;
+    
+    /**
+     * @$param $foo
+     */
+    public function setFoo($foo)
+    {
+        $this->foo = $foo;
+    }
+}
+
+## Collection
+
+By default, if you work with a collection of data, Balloon returns an \ArrayObject of these data.
+
+But if you work with objects for data (ORM), you can also work with specific collection class. 
+You just have to declare a class with the same name as your data class, but in plural.
+This class will receive an array of the objects as first arg of the constructor.
+
+For example, if you work with data object of the class 'Foo', you can declare a class 'Foos' as a collection.
+
+
+```php
+//declare the data class
+class Foo implements IArrayCastable
+{
+    ...
+}
+```
+
+```php
+//declare the collection
+class Foos extends \ArrayObject
+{
+    ...
+}
+```
+
+```php
+//run Balloon
+$balloonFactory = new BalloonFactory();
+$balloon = $balloonFactory->create('path/to/my/file.json', 'Foo');
+$balloon->getAll(); //return an instance of Foos
+```
+
+
+## Filesystem abstraction
+
+By default, Balloon will read and write locally. But you can use other drivers, and work with other kind of filesystems.
+
+The best way to proceed is to use a library such [Gaufrette](https://github.com/KnpLabs/Gaufrette). 
+Balloon provides an adapter for this library.
+
+```php
+//declare Gaufrette
+$adapter = new LocalAdapter('/var/media');
+$filesystem = new Filesystem($adapter);
+
+//declare Ballooon
+$gaufretteAdapter = new GaufretteAdapter($filesystem)
+$balloonFactory = new BalloonFactory($gaufretteAdapter);
+$balloon = $balloonFactory->create('path/to/my/file.json');
+```
