@@ -130,6 +130,48 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([], $result->getArrayCopy());
     }
 
+    public function testGetList()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->getList([0]);
+        $this->assertSame([$data[0]], $result);
+    }
+
+    public function testGetListEmpty()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->getList([0]);
+        $this->assertSame([], $result);
+    }
+
+    public function testGetListWithMapper()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator);
+        $result = $fileManager->getList([0]);
+        $this->assertSame([$data[0]], $result->getArrayCopy());
+    }
+
+    public function testGetListEmptyWithMapper()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator);
+        $result = $fileManager->getList([0]);
+        $this->assertSame([], $result->getArrayCopy());
+    }
+
     public function testGet()
     {
         $data = [['key1' => 'value1'], ['key2' => 'value2']];

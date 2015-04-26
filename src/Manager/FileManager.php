@@ -52,6 +52,20 @@ class FileManager implements IFileManager
     }
 
     /**
+     * @param array $ids
+     * @return mixed
+     */
+    public function getList(array $ids)
+    {
+        $all = $this->getAll();
+        $result = array_intersect_key((array)$all, $ids);
+        if(is_object($all)){
+            return new $all($result);
+        }
+        return $result;
+    }
+
+    /**
      * @param callable $filter
      * @return mixed
      */
