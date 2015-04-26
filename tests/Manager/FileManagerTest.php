@@ -35,6 +35,17 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([], $result);
     }
 
+    public function testGetAllWithPrimaryKey()
+    {
+        $data = ['value1' => ['key1' => 'value1'], 'value2' => ['key1' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader, 'key1');
+        $result = $fileManager->getAll();
+        $this->assertSame($data, $result);
+    }
+
     public function testGetAllWithMapper()
     {
         $data = [['key1' => 'value1'], ['key2' => 'value2']];
@@ -55,6 +66,18 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getAll();
         $this->assertSame([], $result->getArrayCopy());
+    }
+
+    public function testGetAllWithMapperWithPrimaryKey()
+    {
+        $data = ['value1' => ['key1' => 'value1'], 'value2' => ['key1' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator, 'key1');
+        $result = $fileManager->getAll();
+        $this->assertSame($data, $result->getArrayCopy());
     }
 
     public function testFind()
