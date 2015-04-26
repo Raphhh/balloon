@@ -18,7 +18,7 @@ class DataMapper
      */
     public function __construct($className = '')
     {
-        $this->className = $className;
+        $this->setClassName($className);
     }
 
     /**
@@ -27,7 +27,7 @@ class DataMapper
      */
     public function tie(array $dataList)
     {
-        if(!$this->className){
+        if(!$this->getClassName()){
             return new \ArrayObject($dataList);
         }
 
@@ -54,6 +54,26 @@ class DataMapper
             }
         }
         return $result;
+    }
+
+    /**
+     * Getter of $className
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        return $this->className;
+    }
+
+    /**
+     * Setter of $className
+     *
+     * @param string $className
+     */
+    private function setClassName($className)
+    {
+        $this->className = (string)$className;
     }
 
     /**
