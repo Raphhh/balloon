@@ -101,8 +101,8 @@ class FileManager implements IFileManager
     public function add($data)
     {
         $dataList = $this->getAll();
-        if($this->primaryKey && array_key_exists($this->primaryKey, $data)){
-            $dataList[$data[$this->primaryKey]] = $data;
+        if($this->getPrimaryKey() && array_key_exists($this->getPrimaryKey(), $data)){
+            $dataList[$data[$this->getPrimaryKey()]] = $data;
         }else{
             $dataList[] = $data;
         }
