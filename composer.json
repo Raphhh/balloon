@@ -35,6 +35,7 @@
         "icanboogie/inflector": "~1.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "@stable"
+        "phpunit/phpunit": "@stable",
+        "knplabs/gaufrette": "0.1.*"
     }
 }
