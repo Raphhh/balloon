@@ -110,6 +110,19 @@ class FileManager implements IFileManager
     }
 
     /**
+     * @param mixed $dataList
+     * @return int
+     */
+    public function addList($dataList)
+    {
+        $result = 0;
+        foreach($dataList as $data){
+            $result = $this->add($data);
+        }
+        return $result;
+    }
+
+    /**
      * @param mixed $id
      * @param mixed $data
      * @return int

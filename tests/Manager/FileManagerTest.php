@@ -252,6 +252,42 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testAddList()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->addList([['key3' => 'value3']]);
+        $this->assertSame(116, $result);
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+                ['key1' => 'value1'],
+                ['key2' => 'value2'],
+                ['key3' => 'value3'],
+            ],
+            $result
+        );
+    }
+
+    public function testAddListEmpty()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $fileManager = new FileManager($jsonFileReader);
+        $result = $fileManager->addList([['key3' => 'value3']]);
+        $this->assertSame(40, $result);
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+                ['key3' => 'value3'],
+            ],
+            $result
+        );
+    }
+
     public function testModify()
     {
         $data = [['key1' => 'value1'], ['key2' => 'value2']];
