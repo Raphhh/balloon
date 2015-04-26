@@ -52,11 +52,18 @@ class FileManager implements IFileManager
     }
 
     /**
-     * @return array[]
+     * @return mixed
      */
     public function getAll()
     {
-        return (array) $this->fileReader->read();
+        $result = $this->fileReader->read();
+        if(is_null($result)){
+            return [];
+        }
+        if(is_scalar($result)){
+            return (array)$result;
+        }
+        return $result;
     }
 
     /**

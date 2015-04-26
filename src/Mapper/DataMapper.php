@@ -23,15 +23,15 @@ class DataMapper
 
     /**
      * @param array $dataList
-     * @return array
+     * @return \ArrayObject
      */
     public function tie(array $dataList)
     {
         if(!$this->className){
-            return $dataList;
+            return new \ArrayObject($dataList);
         }
 
-        $result = [];
+        $result = new \ArrayObject();
         foreach($dataList as $key => $data){
             $object = $this->mapData($data);
             $result[$key] = $object;
@@ -57,7 +57,6 @@ class DataMapper
     }
 
     /**
-     * @param $className
      * @param array $data
      * @return mixed
      */
