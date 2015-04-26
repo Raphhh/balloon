@@ -3,6 +3,9 @@ namespace Balloon\Manager;
 
 use Balloon\Bridge\DummyFileReader;
 use Balloon\Decorator\Json;
+use Balloon\Mapper\DataMapper;
+use Balloon\Mapper\DataMapperDecorator;
+use ICanBoogie\Inflector;
 
 /**
  * Class FileManagerTest
@@ -30,6 +33,28 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $fileManager = new FileManager($jsonFileReader);
         $result = $fileManager->getAll();
         $this->assertSame([], $result);
+    }
+
+    public function testGetAllWithMapper()
+    {
+        $data = [['key1' => 'value1'], ['key2' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator);
+        $result = $fileManager->getAll();
+        $this->assertSame($data, $result->getArrayCopy());
+    }
+
+    public function testGetAllEmptyWithMapper()
+    {
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $fileManager = new FileManager($dataMapperDecorator);
+        $result = $fileManager->getAll();
+        $this->assertSame([], $result->getArrayCopy());
     }
 
     public function testGet()
