@@ -143,7 +143,7 @@ $balloon->add($data); //nothing added into the file
 $balloon->flush(); //now only, we put $data into the file
 ```
 
-You can also rollback your modifications (only if you have not flushed!) (todo).
+You can also rollback your modifications (only if you have not flushed!).
 
 ```php
 $balloon->add($data); //nothing added into the file
