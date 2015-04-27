@@ -29,7 +29,7 @@ $ composer require raphhh/balloon
 ## Supported file formats
 
  - json
- - yaml (todo)
+ - yaml
  - xml (todo)
  - csv (todo)
 
