@@ -1,4 +1,4 @@
-# Balloon - A tiny DAL & ORM for files (csv, json, xml, yaml,...)
+# Balloon - A tiny file data access layer (csv, json, xml, yaml)
 
 [![Latest Stable Version](https://poser.pugx.org/raphhh/balloon/v/stable.svg)](https://packagist.org/packages/raphhh/balloon)
 [![Build Status](https://travis-ci.org/Raphhh/balloon.png)](https://travis-ci.org/Raphhh/balloon)
@@ -9,10 +9,12 @@
 [![License](https://poser.pugx.org/raphhh/balloon/license.svg)](https://packagist.org/packages/raphhh/balloon)
 
 
-Balloon is a file manager which supports different kinds of data formats. 
-It help you to get, add, modify or remove data from files like csv, json, xml or yaml.
+Balloon is a file data access layer which supports different kinds of data formats.
 
-You can use it as a Data Access Layer (DAL) and work with arrays, or use it as an Object Relational Mapping (ORM) and work with objects.
+It help you to get, add, modify or remove data (CRUD basic actions) from files like csv, json, xml or yaml.
+
+You can work with arrays. So, Balloon will extract data and gives you a list of array for every data. 
+But you can also work with objects. So, Balloon will map these data with objects of a specific class of your choice. Then, you can also work with collection of objects.
 
 
 ## Installation
@@ -30,9 +32,9 @@ $ composer require raphhh/balloon
  - xml (todo)
  - csv (todo)
 
-## ORM: Work with objects
+## Work with objects
 
-With the ORM usage, Balloon will map data of your file into objects of a specific class.
+With the object usage, Balloon will map data of your file into objects of a specific class.
 
 ### Init
 
@@ -72,9 +74,9 @@ $balloon->remove($id);
 $balloon->flush();
 ```
 
-## DAL: Work with arrays
+## orWork with arrays
 
-With the Dal usage, Balloon will map data of your file into arrays.
+With the array usage, Balloon will map data of your file into arrays.
 
 ### Init
 
@@ -138,6 +140,14 @@ $balloon->add($data); //nothing added into the file
 $balloon->flush(); //now only, we put $data into the file
 ```
 
+You can also rollback your modifications (only if you have not flushed!) (todo).
+
+```php
+$balloon->add($data); //nothing added into the file
+$balloon->clear(); //your previous modification has been canceled.
+```
+
+
 ## Object Mapping
 
 ### Data to object
@@ -196,7 +206,7 @@ class Foo implements IArrayCastable
 
 By default, if you work with a collection of data, Balloon returns an \ArrayObject of these data.
 
-But if you work with objects for data (ORM), you can also work with specific collection class. 
+But if you work with objects for data, you can also work with specific collection class. 
 You just have to declare a class with the same name as your data class, but in plural.
 This class will receive an array of the objects as first arg of the constructor.
 
