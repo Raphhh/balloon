@@ -23,6 +23,8 @@ class Balloon extends FileManager implements IProxy
     }
 
     /**
+     * writes the modification into the file.
+     *
      * @return int
      */
     public function flush()
@@ -39,6 +41,8 @@ class Balloon extends FileManager implements IProxy
     }
 
     /**
+     * invalidates the cache of the file.
+     *
      * @return int
      */
     public function invalidate()
