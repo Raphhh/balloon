@@ -32,11 +32,13 @@ $ composer require raphhh/balloon
  - xml (todo)
  - csv (todo)
 
-## Work with objects
+## CRUD actions
+
+### Work with objects
 
 With the object usage, Balloon will map data of your file into objects of a specific class.
 
-### Init
+#### Init
 
 ```php
 $balloonFactory = new BalloonFactory();
@@ -46,67 +48,67 @@ $balloon = $balloonFactory->create('path/to/my/file.json', 'My\Class', 'pkProper
 (Note that the pk is not mandatory. Id of object will be simple index.)
 
 
-### Get objects
+#### Get objects
 
 ```php
 $objects = $balloon->getAll();
 var_dump($objects); // contains an array of the objects of your file
 ```
 
-### Add object
+#### Add object
 
 ```php
 $balloon->add($myObject);
 $balloon->flush();
 ```
 
-### Modify object
+#### Modify object
 
 ```php
 $balloon->modify($id, $myObject);
 $balloon->flush();
 ```
 
-### Remove object
+#### Remove object
 
 ```php
 $balloon->remove($id);
 $balloon->flush();
 ```
 
-## orWork with arrays
+### Work with arrays
 
 With the array usage, Balloon will map data of your file into arrays.
 
-### Init
+#### Init
 
 ```php
 $balloonFactory = new BalloonFactory();
 $balloon = $balloonFactory->create('path/to/my/file.json');
 ```
 
-### Get data
+#### Get data
 
 ```php
 $dataList = $balloon->getAll();
 var_dump($dataList); // contains an array of the data of your file
 ```
 
-### Add data
+#### Add data
 
 ```php
 $balloon->add(['key1' => 'value1']);
 $balloon->flush();
 ```
 
-### Modify data
+#### Modify data
 
 ```php
 $balloon->modify($id, ['key1' => 'value1']);
 $balloon->flush();
 ```
 
-### Remove data
+#### Remove data
 
 ```php
 $balloon->remove($id);
@@ -146,7 +148,6 @@ You can also rollback your modifications (only if you have not flushed!) (todo).
 $balloon->add($data); //nothing added into the file
 $balloon->clear(); //your previous modification has been canceled.
 ```
-
 
 ## Object Mapping
 
