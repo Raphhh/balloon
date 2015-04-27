@@ -6,11 +6,14 @@ use Balloon\Bridge\Factory\FileReaderFactory;
 use Balloon\Bridge\Factory\IFileReaderBridgeFactory;
 use Balloon\Bridge\IFileReader;
 use Balloon\Decorator\Json;
+use Balloon\Decorator\Yaml;
 use Balloon\Mapper\DataMapper;
 use Balloon\Mapper\DataMapperDecorator;
 use Balloon\Proxy\FileReaderCache;
 use Balloon\Proxy\FileReaderProxy;
 use ICanBoogie\Inflector;
+use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Class BalloonFactory
@@ -59,6 +62,27 @@ class BalloonFactory
     {
         return $this->instantiate(
             new Json($this->fileReaderBridgeFactory->create($filePath), $flags),
+            $className,
+            $primaryKey
+        );
+    }
+
+    /**
+     * @param string $filePath
+     * @param string $className
+     * @param string $primaryKey
+     * @param int $dumpLevel
+     * @return Balloon
+     */
+    public function yml($filePath, $className = '', $primaryKey = '', $dumpLevel = 0)
+    {
+        return $this->instantiate(
+            new Yaml(
+                $this->fileReaderBridgeFactory->create($filePath),
+                new Parser(),
+                new Dumper(),
+                $dumpLevel
+            ),
             $className,
             $primaryKey
         );
