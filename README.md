@@ -13,8 +13,9 @@ Balloon is a file data access layer which supports different kinds of data forma
 
 It help you to get, add, modify or remove data (CRUD basic actions) from files like csv, json, xml or yaml.
 
-You can work with arrays. So, Balloon will extract data and gives you a list of array for every data. 
-But you can also work with objects. So, Balloon will map these data with objects of a specific class of your choice. Then, you can also work with collection of objects.
+You can work with objects or with arrays. With arrays, Balloon will extract the data of the file and gives you a list of array for every data. With objects, Balloon will map these data with objects of a specific class of your choice. Then, you can also work with specific collections of objects.
+
+Finally, you can work with different file system abstractions (local, cloud,...). Balloon provides an adapter to use [Gaufrette](https://github.com/KnpLabs/Gaufrette) (but you can also add your own adapter).
 
 
 ## Installation
