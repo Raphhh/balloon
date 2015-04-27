@@ -66,6 +66,15 @@ class FileReaderProxy implements IFileReader, IProxy
     }
 
     /**
+     *
+     */
+    public function clear()
+    {
+        $this->invalidate();
+        $this->read();
+    }
+
+    /**
      * @return int
      */
     public function invalidate()

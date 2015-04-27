@@ -31,6 +31,14 @@ class Balloon extends FileManager implements IProxy
     }
 
     /**
+     * rollbacks the modifications not pushed.
+     */
+    public function clear()
+    {
+        $this->getFileReader()->clear();
+    }
+
+    /**
      * @return int
      */
     public function invalidate()

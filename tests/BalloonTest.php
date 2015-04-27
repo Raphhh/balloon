@@ -320,4 +320,49 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $result = json_decode(file_get_contents($filePath), true);
         $this->assertSame($final, $result);
     }
+
+    public function testClear()
+    {
+        $data = [
+            [
+                'key1' => 'value1',
+                'key2' => 'value2',
+            ],
+            [
+                'key1' => 'value3',
+                'key2' => 'value4',
+            ],
+        ];
+
+        $final = [
+            [
+                'key1' => 'value1',
+                'key2' => 'value2',
+            ],
+        ];
+
+        $filePath = __DIR__ . '/resources/data.json';
+
+        file_put_contents($filePath, json_encode($data));
+
+        $balloonFactory = new BalloonFactory();
+        $balloon = $balloonFactory->create($filePath);
+
+        $result = $balloon->getAll();
+        $this->assertSame($data, $result->getArrayCopy());
+
+        $result = $balloon->remove(1);
+        $this->assertSame(0, $result);
+        $result = $balloon->getAll();
+        $this->assertSame($final, $result->getArrayCopy());
+
+        $result = json_decode(file_get_contents($filePath), true);
+        $this->assertSame($data, $result);
+
+        $balloon->clear();
+        $result = $balloon->flush();
+        $this->assertSame(130, $result);
+        $result = json_decode(file_get_contents($filePath), true);
+        $this->assertSame($data, $result);
+    }
 }

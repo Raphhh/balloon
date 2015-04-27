@@ -14,6 +14,11 @@ interface IProxy
     public function flush();
 
     /**
+     * @return void
+     */
+    public function clear();
+
+    /**
      * @return int
      */
     public function invalidate();
