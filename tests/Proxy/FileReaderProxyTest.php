@@ -78,7 +78,25 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
         $proxy->flush();
     }
 
-    public function testWriteWithInvalidate()
+    public function testInvalidate()
+    {
+        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader->expects($this->exactly(2))
+            ->method('read');
+
+        $fileReader->expects($this->never())
+            ->method('write');
+
+        $cache = new FileReaderCache();
+        $proxy = new FileReaderProxy($fileReader, $cache);
+        $proxy->read();
+        $proxy->read();
+        $proxy->write('abc');
+        $proxy->invalidate();
+        $proxy->read();
+    }
+
+    public function testClear()
     {
         $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
         $fileReader->expects($this->once())
@@ -89,7 +107,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
         $proxy = new FileReaderProxy($fileReader, $cache);
         $proxy->write('abc');
         $proxy->write('def', FILE_APPEND);
-        $proxy->invalidate();
+        $proxy->clear();
         $proxy->flush();
     }
 

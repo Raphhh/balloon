@@ -90,6 +90,5 @@ class FileReaderProxy implements IFileReader, IProxy
     public function invalidate()
     {
         $this->isCached = false;
-        return $this->cache->write(null);
     }
 }
