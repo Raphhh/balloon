@@ -28,7 +28,7 @@ class FileReaderProxy implements IFileReader, IProxy
     /**
      * @var bool
      */
-    private $hasChanged = true;
+    private $hasChanged = false;
 
     /**
      * @param IFileReader $fileReader
