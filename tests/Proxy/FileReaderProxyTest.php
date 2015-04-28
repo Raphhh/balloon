@@ -96,11 +96,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
     public function testFlush()
     {
         $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
-        $fileReader->expects($this->at(0))
-            ->method('write')
-            ->with('abcdef');
-
-        $fileReader->expects($this->at(1))
+        $fileReader->expects($this->once())
             ->method('write')
             ->with('abcdef');
 

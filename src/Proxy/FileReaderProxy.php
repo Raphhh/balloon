@@ -26,6 +26,11 @@ class FileReaderProxy implements IFileReader, IProxy
     private $isCached = false;
 
     /**
+     * @var bool
+     */
+    private $hasChanged = true;
+
+    /**
      * @param IFileReader $fileReader
      * @param FileReaderCache $cache
      */
@@ -54,6 +59,7 @@ class FileReaderProxy implements IFileReader, IProxy
      */
     public function write($data, $mode = 0)
     {
+        $this->hasChanged = true;
         return $this->cache->write($data, $mode);
     }
 
@@ -62,7 +68,11 @@ class FileReaderProxy implements IFileReader, IProxy
      */
     public function flush()
     {
-        return $this->fileReader->write($this->cache->read());
+        if($this->hasChanged){
+            $this->hasChanged = false;
+            return $this->fileReader->write($this->cache->read());
+        }
+        return 0;
     }
 
     /**
