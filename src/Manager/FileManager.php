@@ -101,12 +101,37 @@ class FileManager implements IFileManager
     public function add($data)
     {
         $dataList = $this->getAll();
-        if($this->getPrimaryKey() && array_key_exists($this->getPrimaryKey(), $data)){
-            $dataList[$data[$this->getPrimaryKey()]] = $data;
+        $key = $this->retrieveKey($data);
+        if($key){
+            $dataList[$key] = $data;
         }else{
             $dataList[] = $data;
         }
         return $this->fileReader->write($dataList);
+    }
+
+    /**
+     * @param mixed $data
+     * @return mixed
+     */
+    private function retrieveKey($data)
+    {
+        if($this->getPrimaryKey()){
+            $pk = $this->getPrimaryKey();
+            if(is_array($data)){
+                if(array_key_exists($pk, $data)) {
+                    return $data[$pk];
+                }
+            }elseif(is_object($data)){
+                if(method_exists($data, 'get'.$pk)){
+                    return $data->{'get'.$pk}();
+                }
+                if(property_exists($data, $pk)) {
+                    return $data->{$pk};
+                }
+            }
+        }
+        return null;
     }
 
     /**

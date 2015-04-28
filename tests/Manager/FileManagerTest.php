@@ -3,6 +3,8 @@ namespace Balloon\Manager;
 
 use Balloon\Bridge\DummyFileReader;
 use Balloon\Decorator\Json;
+use Balloon\Manager\resources\Bar;
+use Balloon\Manager\resources\Foo;
 use Balloon\Mapper\DataMapper;
 use Balloon\Mapper\DataMapperDecorator;
 use ICanBoogie\Inflector;
@@ -231,6 +233,68 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
                 ['key1' => 'value1'],
                 ['key2' => 'value2'],
                 ['key3' => 'value3'],
+            ],
+            $result
+        );
+    }
+
+    public function testAddWithPrimaryKey()
+    {
+        $data = ['value1' => ['key1' => 'value1'], 'value2' => ['key1' => 'value2']];
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader, 'key1');
+        $result = $fileManager->add(['key1' => 'value3']);
+        $this->assertSame(146, $result);
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+                'value1' => ['key1' => 'value1'],
+                'value2' => ['key1' => 'value2'],
+                'value3' => ['key1' => 'value3'],
+            ],
+            $result
+        );
+    }
+
+    public function testAddWithPrimaryKeyOnObject()
+    {
+        $data = ['value1' => new Foo('value1'), 'value2' => new Foo('value2')];
+        $added = new Foo('value3');
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader, 'key1');
+        $result = $fileManager->add($added);
+        $this->assertSame(146, $result);
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+                'value1' => ['key1' => 'value1'],
+                'value2' => ['key1' => 'value2'],
+                'value3' => ['key1' => 'value3'],
+            ],
+            $result
+        );
+    }
+
+    public function testAddWithPrimaryKeyOnObjectWithGetter()
+    {
+        $data = ['_value1' => new Bar('value1'), '_value2' => new Bar('value2')];
+        $added = new Bar('value3');
+        $fileReader = new DummyFileReader();
+        $jsonFileReader = new Json($fileReader);
+        $jsonFileReader->write($data);
+        $fileManager = new FileManager($jsonFileReader, 'key1');
+        $result = $fileManager->add($added);
+        $this->assertSame(149, $result);
+        $result = $fileManager->getAll();
+        $this->assertSame(
+            [
+                '_value1' => ['key1' => 'value1'],
+                '_value2' => ['key1' => 'value2'],
+                '_value3' => ['key1' => 'value3'],
             ],
             $result
         );
