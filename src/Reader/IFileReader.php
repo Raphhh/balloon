@@ -1,9 +1,9 @@
 <?php
-namespace Balloon\Bridge;
+namespace Balloon\Reader;
 
 /**
- * Interface IFormatBridge
- * @package Balloon\Bridge
+ * Interface IFormatReader
+ * @package Balloon\Reader
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IFileReader

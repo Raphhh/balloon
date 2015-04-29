@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Mapper;
 
-use Balloon\Bridge\IFileReader;
+use Balloon\Reader\IFileReader;
 
 /**
  * Class DataMapperDecorator

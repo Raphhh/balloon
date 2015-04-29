@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Decorator;
 
-use Balloon\Bridge\DummyFileReader;
+use Balloon\Reader\DummyFileReader;
 
 /**
  * Class JsonTest

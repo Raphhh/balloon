@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Mapper;
 
-use Balloon\Bridge\DummyFileReader;
+use Balloon\Reader\DummyFileReader;
 use Balloon\Decorator\Json;
 
 /**

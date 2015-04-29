@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Manager;
 
-use Balloon\Bridge\IFileReader;
+use Balloon\Reader\IFileReader;
 
 /**
  * Class FileManager

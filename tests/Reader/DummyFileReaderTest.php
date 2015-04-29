@@ -1,9 +1,9 @@
 <?php
-namespace Balloon\Bridge;
+namespace Balloon\Reader;
 
 /**
  * Class DummyFileReaderTest
- * @package Balloon\Bridge
+ * @package Balloon\Reader
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class DummyFileReaderTest extends \PHPUnit_Framework_TestCase

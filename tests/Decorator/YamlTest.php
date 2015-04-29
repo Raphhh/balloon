@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Decorator;
 
-use Balloon\Bridge\DummyFileReader;
+use Balloon\Reader\DummyFileReader;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Parser;
 

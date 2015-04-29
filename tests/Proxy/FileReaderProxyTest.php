@@ -11,7 +11,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testRead()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->once())
             ->method('read');
 
@@ -23,7 +23,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testReadWithWrite()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->once())
             ->method('read')
             ->will($this->returnValue(''));
@@ -41,7 +41,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testReadWithInvalidate()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->exactly(2))
             ->method('read');
 
@@ -54,7 +54,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testWrite()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->never())
             ->method('write');
 
@@ -66,7 +66,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testWriteWithFlush()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->once())
             ->method('write')
             ->with('abcdef');
@@ -80,7 +80,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidate()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->exactly(2))
             ->method('read');
 
@@ -98,7 +98,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testClear()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->once())
             ->method('write')
             ->with('');
@@ -113,7 +113,7 @@ class FileReaderProxyTest extends \PHPUnit_Framework_TestCase
 
     public function testFlush()
     {
-        $fileReader = $this->getMock('Balloon\Bridge\DummyFileReader');
+        $fileReader = $this->getMock('Balloon\Reader\DummyFileReader');
         $fileReader->expects($this->once())
             ->method('write')
             ->with('abcdef');

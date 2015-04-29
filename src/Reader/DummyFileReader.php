@@ -1,9 +1,9 @@
 <?php
-namespace Balloon\Bridge;
+namespace Balloon\Reader;
 
 /**
  * Class DummyFileReader
- * @package Balloon\Bridge
+ * @package Balloon\Reader
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class DummyFileReader implements IFileReader

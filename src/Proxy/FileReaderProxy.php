@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Proxy;
 
-use Balloon\Bridge\IFileReader;
+use Balloon\Reader\IFileReader;
 
 /**
  * Class FileReaderProxy

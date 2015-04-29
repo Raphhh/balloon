@@ -1,11 +1,11 @@
 <?php
-namespace Balloon\Bridge;
+namespace Balloon\Reader;
 
 use Gaufrette\Filesystem;
 
 /**
  * Class GaufretteAdapter
- * @package Balloon\Bridge
+ * @package Balloon\Reader
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class GaufretteAdapter implements IFileReader

@@ -2,9 +2,9 @@
 namespace Balloon\Factory;
 
 use Balloon\Balloon;
-use Balloon\Bridge\Factory\FileReaderFactory;
-use Balloon\Bridge\Factory\IFileReaderBridgeFactory;
-use Balloon\Bridge\IFileReader;
+use Balloon\Reader\Factory\FileReaderFactory;
+use Balloon\Reader\Factory\IFileReaderBridgeFactory;
+use Balloon\Reader\IFileReader;
 use Balloon\Decorator\Json;
 use Balloon\Decorator\Yaml;
 use Balloon\Mapper\DataMapper;

@@ -1,7 +1,7 @@
 <?php
 namespace Balloon\Manager;
 
-use Balloon\Bridge\DummyFileReader;
+use Balloon\Reader\DummyFileReader;
 use Balloon\Decorator\Json;
 use Balloon\Manager\resources\Bar;
 use Balloon\Manager\resources\Foo;

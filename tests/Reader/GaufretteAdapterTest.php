@@ -1,49 +1,59 @@
 <?php
-namespace Balloon\Bridge;
+namespace Balloon\Reader;
+
+use Gaufrette\Adapter\Local;
+use Gaufrette\Filesystem;
 
 /**
- * Class FileReaderTest
- * @package Balloon\Bridge
+ * Class GaufretteAdapterTest
+ * @package Balloon\Reader
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class FileReaderTest extends \PHPUnit_Framework_TestCase
+class GaufretteAdapterTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testWrite()
     {
-        $filePath = __DIR__ . '/resources/file.txt';
-        file_put_contents($filePath, '');
-        $dummyFileReader = new FileReader($filePath);
+        $filePath = '/resources/file.txt';
+        file_put_contents(__DIR__ . $filePath, '');
+        $dummyFileReader = new GaufretteAdapter($this->getGaufrette(), $filePath);
         $this->assertSame('', $dummyFileReader->read());
         $this->assertSame(3, $dummyFileReader->write('abc'));
         $this->assertSame('abc', $dummyFileReader->read());
         $this->assertSame(3, $dummyFileReader->write('def'));
         $this->assertSame('def', $dummyFileReader->read());
-        file_put_contents($filePath, '');
+        file_put_contents(__DIR__ . $filePath, '');
     }
 
     public function testWriteAppend()
     {
-        $filePath = __DIR__ . '/resources/file.txt';
-        file_put_contents($filePath, '');
-        $dummyFileReader = new FileReader($filePath);
+        $filePath = '/resources/file.txt';
+        file_put_contents(__DIR__ . $filePath, '');
+        $dummyFileReader = new GaufretteAdapter($this->getGaufrette(), $filePath);
         $this->assertSame('', $dummyFileReader->read());
         $this->assertSame(3, $dummyFileReader->write('abc'));
         $this->assertSame('abc', $dummyFileReader->read());
-        $this->assertSame(3, $dummyFileReader->write('def', FILE_APPEND|LOCK_EX));
+        $this->assertSame(6, $dummyFileReader->write('def', FILE_APPEND|LOCK_EX));
         $this->assertSame('abcdef', $dummyFileReader->read());
-        file_put_contents($filePath, '');
+        file_put_contents(__DIR__ . $filePath, '');
     }
 
     public function testWriteInNotExistingFile()
     {
-        $filePath = __DIR__ . '/resources/none.txt';
-        $dummyFileReader = new FileReader($filePath);
+        $filePath = '/resources/none.txt';
+        $dummyFileReader = new GaufretteAdapter($this->getGaufrette(), $filePath);
         $this->assertSame('', $dummyFileReader->read());
         $this->assertSame(3, $dummyFileReader->write('abc'));
         $this->assertSame('abc', $dummyFileReader->read());
         $this->assertSame(3, $dummyFileReader->write('def'));
         $this->assertSame('def', $dummyFileReader->read());
-        unlink($filePath);
+        unlink(__DIR__ . $filePath);
+    }
+
+    /**
+     * @return Filesystem
+     */
+    private function getGaufrette()
+    {
+        return new Filesystem(new Local(__DIR__));
     }
 }

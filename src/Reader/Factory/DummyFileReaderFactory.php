@@ -1,12 +1,12 @@
 <?php
-namespace Balloon\Bridge\Factory;
+namespace Balloon\Reader\Factory;
 
-use Balloon\Bridge\DummyFileReader;
-use Balloon\Bridge\IFileReader;
+use Balloon\Reader\DummyFileReader;
+use Balloon\Reader\IFileReader;
 
 /**
  * Class DummyFileReaderFactory
- * @package Balloon\Bridge\Factory
+ * @package Balloon\Reader\Factory
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class DummyFileReaderFactory implements IFileReaderBridgeFactory
