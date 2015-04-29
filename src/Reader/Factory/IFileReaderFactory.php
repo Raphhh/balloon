@@ -4,11 +4,11 @@ namespace Balloon\Reader\Factory;
 use Balloon\Reader\IFileReader;
 
 /**
- * Interface IFileReaderBridgeFactory
+ * Interface IFileReaderFactory
  * @package Balloon\Reader\Factory
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-interface IFileReaderBridgeFactory
+interface IFileReaderFactory
 {
     /**
      * @param $filePath

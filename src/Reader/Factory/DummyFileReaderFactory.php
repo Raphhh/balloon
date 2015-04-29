@@ -9,7 +9,7 @@ use Balloon\Reader\IFileReader;
  * @package Balloon\Reader\Factory
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class DummyFileReaderFactory implements IFileReaderBridgeFactory
+class DummyFileReaderFactory implements IFileReaderFactory
 {
     /**
      * @param $filePath

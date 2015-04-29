@@ -3,7 +3,7 @@ namespace Balloon\Factory;
 
 use Balloon\Balloon;
 use Balloon\Reader\Factory\FileReaderFactory;
-use Balloon\Reader\Factory\IFileReaderBridgeFactory;
+use Balloon\Reader\Factory\IFileReaderFactory;
 use Balloon\Reader\IFileReader;
 use Balloon\Decorator\Json;
 use Balloon\Decorator\Yaml;
@@ -23,14 +23,14 @@ use Symfony\Component\Yaml\Parser;
 class BalloonFactory
 {
     /**
-     * @var IFileReaderBridgeFactory
+     * @var IFileReaderFactory
      */
     private $fileReaderBridgeFactory;
 
     /**
-     * @param IFileReaderBridgeFactory $fileReaderBridgeFactory
+     * @param IFileReaderFactory $fileReaderBridgeFactory
      */
-    public function __construct(IFileReaderBridgeFactory $fileReaderBridgeFactory = null)
+    public function __construct(IFileReaderFactory $fileReaderBridgeFactory = null)
     {
         $this->fileReaderBridgeFactory = $fileReaderBridgeFactory ? : new FileReaderFactory();
     }

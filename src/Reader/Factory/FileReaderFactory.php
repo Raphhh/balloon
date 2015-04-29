@@ -9,7 +9,7 @@ use Balloon\Reader\IFileReader;
  * @package Balloon\Reader\Factory
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-class FileReaderFactory implements IFileReaderBridgeFactory
+class FileReaderFactory implements IFileReaderFactory
 {
     /**
      * @var bool
