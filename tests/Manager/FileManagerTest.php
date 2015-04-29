@@ -2,7 +2,7 @@
 namespace Balloon\Manager;
 
 use Balloon\Reader\DummyFileReader;
-use Balloon\Decorator\Json;
+use Balloon\Format\Json;
 use Balloon\Manager\resources\Bar;
 use Balloon\Manager\resources\Foo;
 use Balloon\Mapper\DataMapper;

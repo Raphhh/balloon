@@ -1,11 +1,11 @@
 <?php
-namespace Balloon\Decorator;
+namespace Balloon\Format;
 
 use Balloon\Reader\IFileReader;
 
 /**
  * Class Json
- * @package Balloon\Decorator
+ * @package Balloon\Format
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class Json implements IFileReader

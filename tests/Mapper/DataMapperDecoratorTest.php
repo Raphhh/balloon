@@ -2,7 +2,7 @@
 namespace Balloon\Mapper;
 
 use Balloon\Reader\DummyFileReader;
-use Balloon\Decorator\Json;
+use Balloon\Format\Json;
 
 /**
  * Class DataMapperDecoratorTest

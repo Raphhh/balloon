@@ -1,11 +1,11 @@
 <?php
-namespace Balloon\Decorator;
+namespace Balloon\Format;
 
 use Balloon\Reader\DummyFileReader;
 
 /**
  * Class JsonTest
- * @package Balloon\Decorator
+ * @package Balloon\Format
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class JsonTest extends \PHPUnit_Framework_TestCase

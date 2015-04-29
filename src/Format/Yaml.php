@@ -1,5 +1,5 @@
 <?php
-namespace Balloon\Decorator;
+namespace Balloon\Format;
 
 use Balloon\Reader\IFileReader;
 use Symfony\Component\Yaml\Dumper;
@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Parser;
 
 /**
  * Class Yaml
- * @package Balloon\Decorator
+ * @package Balloon\Format
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class Yaml implements IFileReader
