@@ -42,8 +42,7 @@ class DataMapper
 
         $result = [];
         foreach($dataList as $key => $data){
-            $object = $this->mapData($data);
-            $result[$key] = $object;
+            $result[$key] = $this->mapData($data);
         }
         return $this->instantiateCollection($result);
     }
@@ -56,13 +55,40 @@ class DataMapper
     {
         $result = [];
         foreach($objects as $key => $object){
-            if($object instanceof IArrayCastable){
-                $result[$key] = $object->toArray();
-            }else{
-                $result[$key] = (array)$object;
-            }
+            $result[$key] = $this->unmapObject($object);
         }
         return $result;
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function mapData(array $data)
+    {
+        $object = new $this->className;
+        foreach($data as $property => $value){
+            $method = 'set'.$property;
+            if(method_exists($object, $method)){
+                $object->$method($value);
+            }else{
+                $object->$property = $value;
+            }
+        }
+        return $object;
+    }
+
+
+    /**
+     * @param mixed $object
+     * @return array
+     */
+    public function unmapObject($object)
+    {
+        if ($object instanceof IArrayCastable) {
+            return $object->toArray();
+        }
+        return (array)$object;
     }
 
     /**
@@ -83,24 +109,6 @@ class DataMapper
     private function setClassName($className)
     {
         $this->className = (string)$className;
-    }
-
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    private function mapData(array $data)
-    {
-        $object = new $this->className;
-        foreach($data as $property => $value){
-            $method = 'set'.$property;
-            if(method_exists($object, $method)){
-                $object->$method($value);
-            }else{
-                $object->$property = $value;
-            }
-        }
-        return $object;
     }
 
     /**
