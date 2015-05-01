@@ -31,16 +31,16 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloonFactory = new BalloonFactory();
         $balloon = $balloonFactory->create($filePath);
         $result = $balloon->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
 
         file_put_contents($filePath, '[]');
 
         $result = $balloon->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
 
         $balloon->invalidate();
         $result = $balloon->getAll();
-        $this->assertSame([], $result->getArrayCopy());
+        $this->assertSame([], $result);
     }
 
     public function testGetAllTyping()
@@ -63,7 +63,7 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloonFactory = new BalloonFactory();
         $balloon = $balloonFactory->create($filePath);
         $result = $balloon->getAll();
-        $this->assertInstanceOf('ArrayObject', $result);
+        $this->assertTrue(is_array($result));
     }
 
     public function testGetAllEmptyTyping()
@@ -77,7 +77,7 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloonFactory = new BalloonFactory();
         $balloon = $balloonFactory->create($filePath);
         $result = $balloon->getAll();
-        $this->assertInstanceOf('ArrayObject', $result);
+        $this->assertTrue(is_array($result));
     }
 
     public function testGet()
@@ -208,12 +208,12 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloon = $balloonFactory->create($filePath);
 
         $result = $balloon->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
 
         $result = $balloon->add($additional);
         $this->assertSame(0, $result);
         $result = $balloon->getAll();
-        $this->assertSame($final, $result->getArrayCopy());
+        $this->assertSame($final, $result);
 
         $result = json_decode(file_get_contents($filePath), true);
         $this->assertSame($data, $result);
@@ -261,12 +261,12 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloon = $balloonFactory->create($filePath);
 
         $result = $balloon->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
 
         $result = $balloon->modify(1, $modified);
         $this->assertSame(0, $result);
         $result = $balloon->getAll();
-        $this->assertSame($final, $result->getArrayCopy());
+        $this->assertSame($final, $result);
 
         $result = json_decode(file_get_contents($filePath), true);
         $this->assertSame($data, $result);
@@ -305,12 +305,12 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloon = $balloonFactory->create($filePath);
 
         $result = $balloon->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
 
         $result = $balloon->remove(1);
         $this->assertSame(0, $result);
         $result = $balloon->getAll();
-        $this->assertSame($final, $result->getArrayCopy());
+        $this->assertSame($final, $result);
 
         $result = json_decode(file_get_contents($filePath), true);
         $this->assertSame($data, $result);
@@ -349,12 +349,12 @@ class BalloonTest extends \PHPUnit_Framework_TestCase
         $balloon = $balloonFactory->create($filePath);
 
         $result = $balloon->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
 
         $result = $balloon->remove(1);
         $this->assertSame(0, $result);
         $result = $balloon->getAll();
-        $this->assertSame($final, $result->getArrayCopy());
+        $this->assertSame($final, $result);
 
         $result = json_decode(file_get_contents($filePath), true);
         $this->assertSame($data, $result);

@@ -74,7 +74,7 @@ class DataMapperTest extends \PHPUnit_Framework_TestCase
     {
         $dataMapper = new DataMapper(Inflector::get(),'Balloon\Mapper\resources\Bar');
         $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
-        $this->assertInstanceOf('ArrayObject', $result);
+        $this->assertTrue(is_array($result));
     }
 
     public function testUnmapObjectsWithCollection()

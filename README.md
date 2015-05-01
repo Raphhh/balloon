@@ -206,7 +206,7 @@ class Foo implements IArrayCastable
 
 ## Collection
 
-By default, if you work with a collection of data, Balloon returns an \ArrayObject of these data.
+By default, if you work with a collection of data, Balloon returns an array of these data.
 
 But if you work with objects for data, you can also work with specific collection class. 
 You just have to declare a class with the same name as your data class, but in plural.

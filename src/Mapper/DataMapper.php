@@ -121,6 +121,6 @@ class DataMapper
         if(class_exists($collectionClassName)){
             return new $collectionClassName($data);
         }
-        return new \ArrayObject($data);
+        return $data;
     }
 }

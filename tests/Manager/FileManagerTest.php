@@ -57,7 +57,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
     }
 
     public function testGetAllEmptyWithMapper()
@@ -67,7 +67,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getAll();
-        $this->assertSame([], $result->getArrayCopy());
+        $this->assertSame([], $result);
     }
 
     public function testGetAllWithMapperWithPrimaryKey()
@@ -79,7 +79,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator, 'key1');
         $result = $fileManager->getAll();
-        $this->assertSame($data, $result->getArrayCopy());
+        $this->assertSame($data, $result);
     }
 
     public function testFind()
@@ -117,7 +117,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $result = $fileManager->find(function($data){
             return isset($data['key1']) && $data['key1'] === 'value1';
         });
-        $this->assertSame([$data[0]], $result->getArrayCopy());
+        $this->assertSame([$data[0]], $result);
     }
 
     public function testFindEmptyWithMapper()
@@ -129,7 +129,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $result = $fileManager->find(function($data){
             return isset($data['key1']) && $data['key1'] === 'value1';
         });
-        $this->assertSame([], $result->getArrayCopy());
+        $this->assertSame([], $result);
     }
 
     public function testGetList()
@@ -161,7 +161,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getList([0]);
-        $this->assertSame([$data[0]], $result->getArrayCopy());
+        $this->assertSame([$data[0]], $result);
     }
 
     public function testGetListEmptyWithMapper()
@@ -171,7 +171,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getList([0]);
-        $this->assertSame([], $result->getArrayCopy());
+        $this->assertSame([], $result);
     }
 
     public function testGet()
