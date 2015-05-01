@@ -35,7 +35,7 @@ class DataMapperDecorator implements IFileReader
      */
     public function read()
     {
-        return $this->dataMapper->tie((array)$this->fileReader->read());
+        return $this->dataMapper->mapDataList((array)$this->fileReader->read());
     }
 
     /**
@@ -45,6 +45,6 @@ class DataMapperDecorator implements IFileReader
      */
     public function write($data, $mode = 0)
     {
-        return $this->fileReader->write($this->dataMapper->untie((array)$data), $mode);
+        return $this->fileReader->write($this->dataMapper->unmapObjects((array)$data), $mode);
     }
 }

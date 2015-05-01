@@ -13,10 +13,10 @@ use ICanBoogie\Inflector;
 class DataMapperTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testTieWithIArrayCastable()
+    public function testMapDataListWithIArrayCastable()
     {
         $dataMapper = new DataMapper(Inflector::get(),'Balloon\Mapper\resources\Foo');
-        $result = $dataMapper->tie([['key1' => 'value1'], ['key1' => 'value2']]);
+        $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
         $this->assertCount(2, $result);
         $this->assertInstanceOf('Balloon\Mapper\resources\Foo', $result[0]);
         $this->assertSame('value1', $result[0]->getKey1());
@@ -24,10 +24,10 @@ class DataMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('value2', $result[1]->getKey1());
     }
 
-    public function testTieWithCommonObject()
+    public function testMapDataListWithCommonObject()
     {
         $dataMapper = new DataMapper(Inflector::get(),'Balloon\Mapper\resources\Bar');
-        $result = $dataMapper->tie([['key1' => 'value1'], ['key1' => 'value2']]);
+        $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
         $this->assertCount(2, $result);
         $this->assertInstanceOf('Balloon\Mapper\resources\Bar', $result[0]);
         $this->assertSame('value1', $result[0]->key1);
@@ -35,52 +35,52 @@ class DataMapperTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('value2', $result[1]->key1);
     }
 
-    public function testTieWithoutClass()
+    public function testMapDataListWithoutClass()
     {
         $dataMapper = new DataMapper(Inflector::get());
-        $result = $dataMapper->tie([['key1' => 'value1'], ['key1' => 'value2']]);
+        $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
         $this->assertCount(2, $result);
         $this->assertSame('value1', $result[0]['key1']);
         $this->assertSame('value2', $result[1]['key1']);
     }
 
-    public function testUntieWithIArrayCastable()
+    public function testUnmapObjectsWithIArrayCastable()
     {
         $data = [];
         $data[] = new Foo('value1');
         $data[] = new Foo('value2');
 
         $dataMapper = new DataMapper(Inflector::get());
-        $result = $dataMapper->untie($data);
+        $result = $dataMapper->unmapObjects($data);
         $this->assertCount(2, $result);
         $this->assertSame('value1', $result[0]['key1']);
         $this->assertSame('value2', $result[1]['key1']);
     }
 
-    public function testUntieWithCommonObject()
+    public function testUnmapObjectsWithCommonObject()
     {
         $data = [];
         $data[] = new Bar('value1');
         $data[] = new Bar('value2');
 
         $dataMapper = new DataMapper(Inflector::get());
-        $result = $dataMapper->untie($data);
+        $result = $dataMapper->unmapObjects($data);
         $this->assertCount(2, $result);
         $this->assertSame('value1', $result[0]['key1']);
         $this->assertSame('value2', $result[1]['key1']);
     }
 
-    public function testUntieWithoutCollection()
+    public function testUnmapObjectsWithoutCollection()
     {
         $dataMapper = new DataMapper(Inflector::get(),'Balloon\Mapper\resources\Bar');
-        $result = $dataMapper->tie([['key1' => 'value1'], ['key1' => 'value2']]);
+        $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
         $this->assertInstanceOf('ArrayObject', $result);
     }
 
-    public function testUntieWithCollection()
+    public function testUnmapObjectsWithCollection()
     {
         $dataMapper = new DataMapper(Inflector::get(),'Balloon\Mapper\resources\Foo');
-        $result = $dataMapper->tie([['key1' => 'value1'], ['key1' => 'value2']]);
+        $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
         $this->assertInstanceOf('Balloon\Mapper\resources\Foos', $result);
     }
 }

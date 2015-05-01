@@ -22,7 +22,7 @@ class DataMapperDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $dataMapper = $this->getMockBuilder('Balloon\Mapper\DataMapper')->disableOriginalConstructor()->getMock();
         $dataMapper->expects($this->once())
-            ->method('tie')
+            ->method('mapDataList')
             ->with($data)
             ->will($this->returnValue($result));
 
@@ -39,7 +39,7 @@ class DataMapperDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $dataMapper = $this->getMockBuilder('Balloon\Mapper\DataMapper')->disableOriginalConstructor()->getMock();
         $dataMapper->expects($this->once())
-            ->method('untie')
+            ->method('unmapObjects')
             ->with($data)
             ->will($this->returnValue($result));
 

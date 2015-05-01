@@ -34,7 +34,7 @@ class DataMapper
      * @param array $dataList
      * @return \ArrayObject
      */
-    public function tie(array $dataList)
+    public function mapDataList(array $dataList)
     {
         if(!$this->getClassName()){
             return $this->instantiateCollection($dataList);
@@ -52,7 +52,7 @@ class DataMapper
      * @param mixed[] $objects
      * @return array
      */
-    public function untie(array $objects)
+    public function unmapObjects(array $objects)
     {
         $result = [];
         foreach($objects as $key => $object){
