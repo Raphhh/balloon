@@ -256,3 +256,34 @@ $gaufretteAdapter = new GaufretteAdapter($filesystem)
 $balloonFactory = new BalloonFactory($gaufretteAdapter);
 $balloon = $balloonFactory->create('path/to/my/file.json');
 ```
+
+
+## Extending Balloon
+
+You can extend Balloon by creating a child:
+```php
+class BeachBall extends Balloon
+{
+    //your own methods here...
+}
+```
+
+But to instantiate easily this new class, you should also extend BalloonFactory and specify the name of your class:
+
+```php
+class BeachBallFactory extends BalloonFactory
+{
+    protected function getClassName()
+    {
+        return 'BeachBall';
+    }
+}
+```
+
+Then you can use BeachBallFactory to create BeachBall in a same way than Balloon:
+
+```php
+$beachBallFactory = new BeachBallFactory();
+$beachBall = $beachBallFactory->create('path/to/my/file.json');
+$beachBall->getAll();
+```

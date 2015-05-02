@@ -88,6 +88,11 @@ class BalloonFactory
         );
     }
 
+    protected function getClassName()
+    {
+        return 'Balloon\Balloon';
+    }
+
     /**
      * @param IFileReader $formatDecorator
      * @param string $className
@@ -96,7 +101,8 @@ class BalloonFactory
      */
     private function instantiate(IFileReader $formatDecorator, $className, $primaryKey)
     {
-        return new Balloon(
+        $balloon = $this->getClassName();
+        return new $balloon(
             new FileReaderProxy(
                 new DataMapperDecorator(
                     $formatDecorator,
