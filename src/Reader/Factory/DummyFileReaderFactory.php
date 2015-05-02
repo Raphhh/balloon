@@ -12,11 +12,24 @@ use Balloon\Reader\IFileReader;
 class DummyFileReaderFactory implements IFileReaderFactory
 {
     /**
-     * @param $filePath
+     * @var IFileReader
+     */
+    private $fileReader;
+
+    /**
+     * @param IFileReader $fileReader
+     */
+    public function __construct(IFileReader $fileReader = null)
+    {
+        $this->fileReader = $fileReader ? : new DummyFileReader();
+    }
+
+    /**
+     * @param string $filePath
      * @return IFileReader
      */
     public function create($filePath)
     {
-        return new DummyFileReader();
+        return $this->fileReader;
     }
 }
