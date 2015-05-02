@@ -164,15 +164,22 @@ Fo example, if the key is 'foo', the setter in the object must be 'setFoo($value
 ```php
 class Bar 
 {
-
     private $foo;
     
     /**
-     * @$param $foo
+     * @param $foo
      */
     public function setFoo($foo)
     {
         $this->foo = $foo;
+    }
+    
+    /**
+     * @return $foo
+     */
+    public function getFoo()
+    {
+        return $this->foo;
     }
 }
 ```
@@ -191,8 +198,7 @@ class Foo implements IArrayCastable
 {
 
     private $key1 = 'value1';
-    private $key2 = 'value2';
-    
+    private $key2 = 'value2';    
     
     /**
      * @return array
