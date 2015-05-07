@@ -95,6 +95,15 @@ class FileManager implements IFileManager
     }
 
     /**
+     * @param mixed $dataList
+     * @return int
+     */
+    public function set($dataList)
+    {
+        return $this->fileReader->write($dataList);
+    }
+
+    /**
      * @param mixed $data
      * @return int
      */
@@ -107,7 +116,7 @@ class FileManager implements IFileManager
         }else{
             $dataList[] = $data;
         }
-        return $this->fileReader->write($dataList);
+        return $this->set($dataList);
     }
 
     /**
@@ -157,7 +166,7 @@ class FileManager implements IFileManager
         $dataList = $this->getAll();
         if(isset($dataList[$id])){
             $dataList[$id] = $data;
-            return $this->fileReader->write($dataList);
+            return $this->set($dataList);
         }
         return 0;
     }
@@ -183,7 +192,7 @@ class FileManager implements IFileManager
     {
         $dataList = $this->getAll();
         unset($dataList[$id]);
-        return $this->fileReader->write($dataList);
+        return $this->set($dataList);
     }
 
     /**
@@ -204,7 +213,7 @@ class FileManager implements IFileManager
      */
     public function removeAll()
     {
-        return $this->fileReader->write(null);
+        return $this->set(null);
     }
 
     /**
