@@ -88,7 +88,10 @@ class DataMapper
         if ($object instanceof IArrayCastable) {
             return $object->toArray();
         }
-        return (array)$object;
+        if(is_object($object)){
+            return (array)$object;
+        }
+        return $object;
     }
 
     /**
