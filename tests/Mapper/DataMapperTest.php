@@ -22,12 +22,26 @@ class DataMapperTest extends \PHPUnit_Framework_TestCase
     public function testMapDataListWithCommonObject()
     {
         $dataMapper = new DataMapper($this->provideSerializer(), Inflector::get(),'Balloon\Mapper\resources\Bar');
-        $result = $dataMapper->mapDataList([['key1' => 'value1'], ['key1' => 'value2']]);
+        $result = $dataMapper->mapDataList(
+            [
+                [
+                    'key1' => 'value1',
+                ],
+                [
+                    'key1' => 'value2',
+                    'key2' => [
+                        'key1' => 'value3',
+                    ]
+                ]
+            ]
+        );
         $this->assertCount(2, $result);
         $this->assertInstanceOf('Balloon\Mapper\resources\Bar', $result[0]);
         $this->assertSame('value1', $result[0]->getKey1());
+        $this->assertNull($result[0]->getKey2());
         $this->assertInstanceOf('Balloon\Mapper\resources\Bar', $result[1]);
         $this->assertSame('value2', $result[1]->getKey1());
+        $this->assertSame('value3', $result[1]->getKey2()->key1);
     }
 
     public function testMapDataListWithoutClass()
