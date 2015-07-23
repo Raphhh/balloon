@@ -14,7 +14,7 @@ class Bar
      * @var string
      * @Type("string")
      */
-    public $key1;
+    private $key1;
 
     /**
      * @param string $key1
@@ -22,5 +22,21 @@ class Bar
     public function __construct($key1 = '')
     {
         $this->key1 = $key1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey1()
+    {
+        return $this->key1;
+    }
+
+    /**
+     * @param string $key1
+     */
+    public function setKey1($key1)
+    {
+        $this->key1 = (string) $key1;
     }
 }

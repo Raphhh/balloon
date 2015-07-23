@@ -175,7 +175,7 @@ class Foo
     /**
      * @Type("string")
      */
-    public $name;
+    private $name;
 }
 
 //declare the class in Balloon
