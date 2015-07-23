@@ -1,6 +1,8 @@
 <?php
 namespace Balloon\Mapper\resources;
 
+use JMS\Serializer\Annotation\Type;
+
 /**
  * Class Class1
  * @package Balloon\Mapper\resources
@@ -10,6 +12,7 @@ class Bar
 {
     /**
      * @var string
+     * @Type("string")
      */
     public $key1;
 

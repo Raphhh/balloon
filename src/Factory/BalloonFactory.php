@@ -12,6 +12,8 @@ use Balloon\Mapper\DataMapperDecorator;
 use Balloon\Proxy\FileReaderCache;
 use Balloon\Proxy\FileReaderProxy;
 use ICanBoogie\Inflector;
+use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Parser;
 
@@ -28,11 +30,18 @@ class BalloonFactory
     private $fileReaderBridgeFactory;
 
     /**
-     * @param IFileReaderFactory $fileReaderBridgeFactory
+     * @var Serializer
      */
-    public function __construct(IFileReaderFactory $fileReaderBridgeFactory = null)
+    private $serializer;
+
+    /**
+     * @param IFileReaderFactory $fileReaderBridgeFactory
+     * @param Serializer $serializer
+     */
+    public function __construct(IFileReaderFactory $fileReaderBridgeFactory = null, Serializer $serializer = null)
     {
         $this->fileReaderBridgeFactory = $fileReaderBridgeFactory ? : new FileReaderFactory();
+        $this->serializer = $serializer ? : SerializerBuilder::create()->build();
     }
 
     /**
@@ -107,6 +116,7 @@ class BalloonFactory
                 new DataMapperDecorator(
                     $formatDecorator,
                     new DataMapper(
+                        $this->serializer,
                         Inflector::get(),
                         $className
                     )
