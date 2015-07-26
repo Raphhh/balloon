@@ -152,63 +152,45 @@ $balloon->clear(); //your previous modification has been canceled.
 
 ## Object Mapping
 
-### Data to object
+## Object
 
-When you read a file, Balloon uses two strategies to map the data to an object:
+Balloon uses the [JMS Serializer](http://jmsyst.com/libs/serializer) to serialize the objects.
 
- 1. Balloon uses a setter of the object according to the name of the mapped key.
- 2. If not setter is found, Balloon set the value directly to the property of the the mapped key.
- 
-Fo example, if the key is 'foo', the setter in the object must be 'setFoo($value)'.
+This library can work with yaml, xml or annotations to map the data to their object.
+
+For example, if you use annotations:
 
 ```php
-class Bar 
+namespace Bar;
+
+//declare the annotation namespace
+use JMS\Serializer\Annotation\Type;
+
+//register the doctrine auto load
+AnnotationRegistry::registerLoader('class_exists');
+
+//declare the data class
+class Foo
 {
-    private $foo;
-    
     /**
-     * @param $foo
+     * @Type("string")
      */
-    public function setFoo($foo)
-    {
-        $this->foo = $foo;
-    }
-    
-    /**
-     * @return $foo
-     */
-    public function getFoo()
-    {
-        return $this->foo;
-    }
+    private $name;
 }
+
+//declare the class in Balloon
+$balloonFactory = new BalloonFactory();
+$balloon = $balloonFactory->create('path/to/my/file.json', 'Bar\Foo');
 ```
 
-### Object to data
+You can redefine the default Serializer in the second arg of the Balloon Factory:
 
-When you write into a file, Balloon uses two strategies to map an object to the data:
-
- 1. Your object implements IArrayCastable, and returns directly the data.
- 2. Your object use public properties and can be cast to an array.
- 
-
-An example with IArrayCastable:
 ```php
-class Foo implements IArrayCastable
-{
-
-    private $key1 = 'value1';
-    private $key2 = 'value2';    
-    
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return get_object_vars($this);
-    }
-}
+$serializer = JMS\Serializer\SerializerBuilder::create()->build();
+$balloonFactory = new BalloonFactory(null, $serializer);
 ```
+
+For more information about JMS Serializer, see the [documentation](http://jmsyst.com/libs/serializer).
 
 ## Collection
 
@@ -223,7 +205,7 @@ For example, if you work with data object of the class 'Foo', you can declare a 
 
 ```php
 //declare the data class
-class Foo implements IArrayCastable
+class Foo
 {
     ...
 }

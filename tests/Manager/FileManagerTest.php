@@ -8,6 +8,7 @@ use Balloon\Manager\resources\Foo;
 use Balloon\Mapper\DataMapper;
 use Balloon\Mapper\DataMapperDecorator;
 use ICanBoogie\Inflector;
+use JMS\Serializer\SerializerBuilder;
 
 /**
  * Class FileManagerTest
@@ -54,7 +55,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
         $jsonFileReader->write($data);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getAll();
         $this->assertSame($data, $result);
@@ -64,7 +65,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
     {
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getAll();
         $this->assertSame([], $result);
@@ -76,7 +77,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
         $jsonFileReader->write($data);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator, 'key1');
         $result = $fileManager->getAll();
         $this->assertSame($data, $result);
@@ -112,7 +113,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
         $jsonFileReader->write($data);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->find(function($data){
             return isset($data['key1']) && $data['key1'] === 'value1';
@@ -124,7 +125,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
     {
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->find(function($data){
             return isset($data['key1']) && $data['key1'] === 'value1';
@@ -158,7 +159,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
         $jsonFileReader->write($data);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getList([0]);
         $this->assertSame([$data[0]], $result);
@@ -168,7 +169,7 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
     {
         $fileReader = new DummyFileReader();
         $jsonFileReader = new Json($fileReader);
-        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper(Inflector::get()));
+        $dataMapperDecorator = new DataMapperDecorator($jsonFileReader, new DataMapper($this->provideSerializer(), Inflector::get()));
         $fileManager = new FileManager($dataMapperDecorator);
         $result = $fileManager->getList([0]);
         $this->assertSame([], $result);
@@ -516,5 +517,14 @@ class FileManagerTest extends \PHPUnit_Framework_TestCase
             ],
             $result
         );
+    }
+
+    /**
+     *
+     * @return \JMS\Serializer\Serializer
+     */
+    private function provideSerializer()
+    {
+        return SerializerBuilder::create()->build();
     }
 }

@@ -2,6 +2,7 @@
 namespace Balloon\Mapper;
 
 use ICanBoogie\Inflector;
+use JMS\Serializer\Serializer;
 
 /**
  * Class DataMapper
@@ -21,11 +22,18 @@ class DataMapper
     private $inflector;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
+     * @param Serializer $serializer
      * @param Inflector $inflector
      * @param string $className
      */
-    public function __construct(Inflector $inflector, $className = '')
+    public function __construct(Serializer $serializer, Inflector $inflector, $className = '')
     {
+        $this->serializer = $serializer;
         $this->inflector = $inflector;
         $this->setClassName($className);
     }
@@ -66,16 +74,10 @@ class DataMapper
      */
     public function mapData(array $data)
     {
-        $object = new $this->className;
-        foreach($data as $property => $value){
-            $method = 'set'.$property;
-            if(method_exists($object, $method)){
-                $object->$method($value);
-            }else{
-                $object->$property = $value;
-            }
+        if(!$this->getClassName()){
+            return $data;
         }
-        return $object;
+        return $this->serializer->fromArray($data, $this->getClassName());
     }
 
 
@@ -85,13 +87,10 @@ class DataMapper
      */
     public function unmapObject($object)
     {
-        if ($object instanceof IArrayCastable) {
-            return $object->toArray();
+        if(is_array($object)){
+            return $object;
         }
-        if(is_object($object)){
-            return (array)$object;
-        }
-        return $object;
+        return $this->serializer->toArray($object);
     }
 
     /**
